@@ -38,7 +38,10 @@ docker-compose up
 ```
 
 ## Access AEM Environment
-When you want to access you environment on Windows or MAC, you have to resolve the IP of your Boot2Docker VM first:
-```boot2docker ip```
+When you want to access you environment on Windows or MAC, you have to resolve the IP of your Boot2Docker VM first via `docker-machine`:
+
+```
+docker-machine ip default
+```
 
 Through this IP you can access the AEM author and publish as well as the Apache dispatcher through the known standard ports.
