@@ -2,12 +2,15 @@ publish:
     image: aem-publish
     ports:
         - "4503:4503"
+    links:
+        # links are currently unnecessary for publish.
 
 author:
     image: aem-author
     ports:
         - "4502:4502"
     links:
+        # expose publish to author so author can replicate to publish
         - publish
 
 dispatcher:
@@ -15,4 +18,7 @@ dispatcher:
     ports:
         - "80:80"
     links:
+        # expose publish to dispatcher so dispatcher can request pages from
+        # publish. also allows us to proxy requests to publish via vhost on
+        # port 80.
         - publish
