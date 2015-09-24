@@ -2,6 +2,23 @@
 
 DOCKER_IMAGES="ubuntu-java aem-base aem-author aem-publish aem-dispatcher"
 
+REQUIRED_FILES="aem-base/aem-quickstart.jar
+aem-base/license.properties
+aem-dispatcher/dispatcher.so"
+
+MISSING_REQUIRED_FILES=
+
+for f in $REQUIRED_FILES; do
+  if [ ! -e $f ]; then
+    echo "Error: Missing required file: '${f}'."
+    MISSING_REQUIRED_FILES=true
+  fi
+done
+
+if [ $MISSING_REQUIRED_FILES ]; then
+  exit 1
+fi
+
 for image in $DOCKER_IMAGES; do
   echo ">>> Building Docker image: ${image}..."
   docker build --rm --force-rm -t ${image} -f ./${image}/Dockerfile ./${image}
