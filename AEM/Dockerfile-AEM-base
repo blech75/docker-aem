@@ -4,10 +4,20 @@ FROM ubuntu-java
 
 ENV AEM_VERSION 6.1
 # NOTE: we're not using *-runmode-port.jar naming convention for jar because it
-# doesn't matter for unpacking
+# doesn't matter for unpacking. run modes are set via CQ_RUNMODE in the -author
+# and -publish Dockerfiles.
 ENV AEM_QUICKSTART_FILE aem-quickstart.jar
 ENV AEM_USER aem
 ENV AEM_WORKING_DIR /opt/aem
+
+# set some common env vars to be used by the -author and -publish images.
+#
+# NOTE: the following vars are only used by the 'quickstart' script, so they
+# don't apply during initial startup (installation) via 'start'.
+ENV CQ_VERBOSE    true
+ENV CQ_GUI        ''
+ENV CQ_NOBROWSER  true
+ENV CQ_NOFORK     true
 
 # Add quick-start file and license properties
 ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE

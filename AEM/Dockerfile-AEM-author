@@ -2,18 +2,33 @@
 
 FROM aem-base:latest
 
-ENV CQ_RUNMODE author
-ENV CQ_PORT 4502
+# use env vars to control AEM behavior. (see aem-base Dockerfile for additional
+# CQ_* env vars.)
+#
+# ENV CQ_RUNMODE    "dev,author,nosamplecontent"
+ENV CQ_RUNMODE    "dev,author"
+ENV CQ_PORT       4502
+
+# name / hostname of the publish image
 ENV PUBLISH_HOST publish
 
-# start up AEM in author mode, wait until it responds, install replication agent to publish instance, then shut down.
-RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties && \
+
+# install AEM and get it into the initial state for the desired runmode.
+#
+# the RUN command starts up AEM, waits until it responds, and then shuts down.
+#
+#
+RUN echo -n "Initial startup (installation) of AEM" && \
     crx-quickstart/bin/start && \
     until $(curl -u admin:admin --output /dev/null --silent --head --fail http://localhost:$CQ_PORT); do printf '.'; sleep 5; done && \
+    echo "done!" && \
+    echo "Setting up author replication agent..." && \
     curl -u admin:admin --output /dev/null --silent http://localhost:4502/etc/replication/agents.author/publish/jcr:content -F transportUri=http://${PUBLISH_HOST}:4503/bin/receive?sling:authRequestLogin=1 && \
+    echo "Stopping AEM..." && \
     crx-quickstart/bin/stop
 
 EXPOSE $CQ_PORT
 
-# start up AEM via the quickstart jar, keeping it in the foreground
-CMD java -XX:MaxPermSize=256M -Xmx1024m -jar $AEM_QUICKSTART_FILE -p $CQ_PORT -r $CQ_RUNMODE -verbose -nofork
+# run quickstart to keep AEM in the foreground (instead of start, which
+# backgrounds it).
+ENTRYPOINT crx-quickstart/bin/quickstart
