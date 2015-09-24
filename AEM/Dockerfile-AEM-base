@@ -33,9 +33,9 @@ ENV CQ_NOFORK     true
 ENV CQ_JVM_OPTS   "-server -Xms512M -Xmx1524M -XX:MaxPermSize=512M -Djava.awt.headless=true"
 
 
-# Add quick-start file and license properties
-ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
-ADD ./license.properties $AEM_WORKING_DIR/license.properties
+# Add quickstart .jar and license files
+ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/
+ADD ./license.properties   $AEM_WORKING_DIR/
 
 # Add fixed quickstart script, to be used by -author and -publish instances.
 ADD ./quickstart-fixed $AEM_WORKING_DIR/crx-quickstart/bin/
