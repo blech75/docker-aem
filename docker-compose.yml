@@ -22,3 +22,7 @@ dispatcher:
         # publish. also allows us to proxy requests to publish via vhost on
         # port 80.
         - publish
+
+        # expose author to dispatcher so dispatcher can proxy to author via
+        # vhost on port 80.
+        - author

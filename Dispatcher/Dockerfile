@@ -19,7 +19,11 @@ RUN	apt-get update && \
 
 COPY	ports.conf /etc/apache2/ports.conf
 
+# FIXME: these confs should really live in sites-available and be symlinked to
+# sites-enabled
 COPY	80-dispatcher.conf /etc/apache2/sites-enabled/80-dispatcher.conf
+COPY	81-author.conf /etc/apache2/sites-enabled/81-author.conf
+COPY	82-publish.conf /etc/apache2/sites-enabled/82-publish.conf
 
 COPY	dispatcher.so /usr/lib/apache2/modules/dispatcher.so
 COPY	dispatcher.conf /etc/apache2/conf-enabled/dispatcher.conf
