@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+DOCKER_IMAGES="ubuntu-java aem-base aem-author aem-publish aem-dispatcher"
+
+for image in $DOCKER_IMAGES; do
+  echo ">>> Building Docker image: ${image}..."
+  docker build --rm --force-rm -t ${image} -f ./${image}/Dockerfile ./${image}
+  echo
+done
+
+echo ">>> Image building complete."
+echo
+echo "Run 'docker-compose up -d' to start the containers."
