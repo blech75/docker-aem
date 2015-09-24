@@ -13,7 +13,7 @@ Presentation: http://eggs.de/connect2015
 The following files are required, but they're not part of this repository. Add them manually before you're able to build the Docker images.
 - AEM/aem-quickstart.jar
 - AEM/license.properties
-- Dispatcher/dispatcher-apache2.4-4.1.8.so
+- Dispatcher/dispatcher.so
 
 ## Build AEM Images
 Execute within the _AEM_ folder:

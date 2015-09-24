@@ -21,7 +21,7 @@ COPY	ports.conf /etc/apache2/ports.conf
 
 COPY	80-dispatcher.conf /etc/apache2/sites-enabled/80-dispatcher.conf
 
-COPY	dispatcher-apache2.4-4.1.8.so /usr/lib/apache2/modules/dispatcher-apache2.4-4.1.8.so
+COPY	dispatcher.so /usr/lib/apache2/modules/dispatcher.so
 COPY	dispatcher.conf /etc/apache2/conf-enabled/dispatcher.conf
 COPY	dispatcher.any /etc/apache2/conf.d/dispatcher.any
 

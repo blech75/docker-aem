@@ -3,4 +3,4 @@ license.properties
 
 wget-log
 
-dispatcher-apache*
+dispatcher.so
