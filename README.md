@@ -18,6 +18,8 @@ The following files are required, but they're not part of this repository. Add t
 ## Build AEM Images
 Execute within the _AEM_ folder:
 ```
+echo "Build Ubuntu Java image"
+docker build --rm --force-rm -t ubuntu-java -f Dockerfile-ubuntu-java ./
 echo "Build AEM base image"
 docker build --rm --force-rm -t aem-base -f Dockerfile-AEM-base ./
 echo "Build AEM author image"
