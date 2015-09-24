@@ -13,7 +13,7 @@ author:
         - publish
 
 dispatcher:
-    image: apache-dispatcher
+    image: aem-dispatcher
     ports:
         - "80:80"
     links:

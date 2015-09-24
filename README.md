@@ -11,26 +11,18 @@ Presentation: http://eggs.de/connect2015
 
 ## Build Prerequisites
 The following files are required, but they're not part of this repository. Add them manually before you're able to build the Docker images.
-- AEM/aem-quickstart.jar
-- AEM/license.properties
-- Dispatcher/dispatcher.so
+- aem-base/aem-quickstart.jar
+- aem-base/license.properties
+- aem-dispatcher/dispatcher.so
 
 ## Build AEM Images
-Execute within the _AEM_ folder:
+Execute within the project root folder
 ```
-echo "Build Ubuntu Java image"
-docker build --rm --force-rm -t ubuntu-java -f Dockerfile-ubuntu-java ./
-echo "Build AEM base image"
-docker build --rm --force-rm -t aem-base -f Dockerfile-AEM-base ./
-echo "Build AEM author image"
-docker build --rm --force-rm -t aem-author -f Dockerfile-AEM-author ./
-echo "Build AEM publish image"
-docker build --rm --force-rm -t aem-publish -f Dockerfile-AEM-publish ./
-```
-
-Execute within the _Dispatcher_ folder:
-```
-docker build --rm --force-rm -t apache-dispatcher -f Dockerfile ./
+docker build --rm --force-rm -t ubuntu-java -f ./ubuntu-java/Dockerfile ./ubuntu-java
+docker build --rm --force-rm -t aem-base -f ./aem-base/Dockerfile ./aem-base
+docker build --rm --force-rm -t aem-author -f ./aem-author/Dockerfile ./aem-author
+docker build --rm --force-rm -t aem-publish -f ./aem-publish/Dockerfile ./aem-publish
+docker build --rm --force-rm -t aem-dispatcher -f ./aem-dispatcher/Dockerfile ./aem-dispatcher
 ```
 
 ## Start environment
