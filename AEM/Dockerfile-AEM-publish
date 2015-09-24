@@ -31,6 +31,6 @@ RUN echo "Starting AEM with env:" && \
 
 EXPOSE $CQ_PORT
 
-# run quickstart to keep AEM in the foreground (instead of start, which
+# run quickstart (fixed) to keep AEM in the foreground (instead of start, which
 # backgrounds it).
-ENTRYPOINT crx-quickstart/bin/quickstart
+ENTRYPOINT crx-quickstart/bin/quickstart-fixed

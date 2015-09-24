@@ -37,6 +37,10 @@ ENV CQ_JVM_OPTS   "-server -Xms512M -Xmx1524M -XX:MaxPermSize=512M -Djava.awt.he
 ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
 ADD ./license.properties $AEM_WORKING_DIR/license.properties
 
+# Add fixed quickstart script, to be used by -author and -publish instances.
+ADD ./quickstart-fixed $AEM_WORKING_DIR/crx-quickstart/bin/
+
+
 # Create aem user, unpack quickstart jar, and adjust ownership of WORKDIR
 RUN groupadd -r $AEM_USER && useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_DIR && \
     java -jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE -unpack && \
