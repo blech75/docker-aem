@@ -19,6 +19,20 @@ ENV CQ_GUI        ''
 ENV CQ_NOBROWSER  true
 ENV CQ_NOFORK     true
 
+# increase memory to 1.5GB. (this assumes docker has enough RAM.)
+#
+# since we're increasing the memory via overriding the opts, we need to set the
+# other options normally set via the 'quickstart' script so remain applied. the
+# default options are:
+#
+#   CQ_JVM_OPTS='-server -Xmx1024m -XX:MaxPermSize=256M'
+#
+# NOTE: the ' -Djava.awt.headless=true' below is from the start script, which
+# seems like a good idea, though it's not clear if it's duplicative of CQ_GUI.
+#
+ENV CQ_JVM_OPTS   "-server -Xms512M -Xmx1524M -XX:MaxPermSize=512M -Djava.awt.headless=true"
+
+
 # Add quick-start file and license properties
 ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
 ADD ./license.properties $AEM_WORKING_DIR/license.properties
