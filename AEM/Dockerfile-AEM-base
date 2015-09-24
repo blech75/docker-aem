@@ -3,7 +3,9 @@
 FROM ubuntu:14.04
 
 ENV AEM_VERSION 6.0
-ENV AEM_QUICKSTART_FILE aem-quickstart-6.0.jar
+# NOTE: we're not using *-runmode-port.jar naming convention for jar because it
+# doesn't matter for unpacking
+ENV AEM_QUICKSTART_FILE aem-quickstart.jar
 ENV AEM_USER aem
 ENV AEM_WORKING_DIR /opt/aem
 ENV DEBIAN_FRONTEND noninteractive
