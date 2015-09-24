@@ -6,7 +6,7 @@ FROM aem-base:latest
 # CQ_* env vars.)
 #
 # ENV CQ_RUNMODE    "dev,author,nosamplecontent"
-ENV CQ_RUNMODE    "dev,author"
+ENV CQ_RUNMODE    "author"
 ENV CQ_PORT       4502
 
 # name / hostname of the publish image
