@@ -15,4 +15,5 @@ RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties &
 
 EXPOSE $CQ_PORT
 
+# start up AEM via the quickstart jar, keeping it in the foreground
 CMD java -XX:MaxPermSize=256M -Xmx1024m -jar $AEM_QUICKSTART_FILE -p $CQ_PORT -r $CQ_RUNMODE -verbose -nofork
