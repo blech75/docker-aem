@@ -2,8 +2,7 @@ publish:
     image: aem-publish
     ports:
         - "4503:4503"
-    links:
-        # links are currently unnecessary for publish.
+    # links are currently unnecessary for publish.
 
 author:
     image: aem-author
