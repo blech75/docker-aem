@@ -1,21 +1,26 @@
 FROM ubuntu:14.04
 
+# install apache packages
 RUN	apt-get update && \
-	apt-get install -y \
-		apache2 \
-		apache2-doc && \
-	a2enmod \
-		headers \
-		alias \
-		ssl \
-		rewrite \
-		proxy \
-		proxy_html \
-		proxy_http \
-		xml2enc && \
-	mkdir -p /etc/apache2/ssl && \
-	rm /var/www/html/* && \
-	rm /etc/apache2/sites-enabled/000-default.conf && \
+	apt-get install -y apache2 apache2-doc
+
+# configure apache modules
+RUN a2enmod \
+	headers \
+	alias \
+	ssl \
+	rewrite \
+	proxy \
+	proxy_html \
+	proxy_http \
+	xml2enc
+
+# make placholder ssl dir; remove default site since we don't need it
+RUN mkdir -p /etc/apache2/ssl && \
+	rm /etc/apache2/sites-enabled/000-default.conf
+
+# clear out docroot and allow write access to apache (dispatcher module)
+RUN rm /var/www/html/* && \
 	chgrp -R www-data /var/www/html && \
 	chmod g+w /var/www/html
 
