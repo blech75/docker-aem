@@ -74,12 +74,7 @@
       # Allow non-public content directories
 #     /0021 { /type "allow" /url "/apps/*"   }  # allow apps access
 #     /0022 { /type "allow" /url "/bin/*"    }
-	  
       /0023 { /type "allow" /url "/content*" }  # disable this rule to allow mapped content only
-      # Grant access to the CQ log files
-	  /0024 { /type "allow" /url "/bin/crxde/logs" }
-	  # Grant access to the mapped content intranet files
-	  /0025 { /type "allow" /url "/intranet*" }
 
 #     /0024 { /type "allow" /url "/libs/*"   }
 #     /0025 { /type "deny"  /url "/libs/shindig/proxy*" } # if you enable /libs close access to proxy
