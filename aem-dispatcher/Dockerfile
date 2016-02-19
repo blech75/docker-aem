@@ -15,7 +15,9 @@ RUN	apt-get update && \
 		xml2enc && \
 	mkdir -p /etc/apache2/ssl && \
 	rm /var/www/html/* && \
-	rm /etc/apache2/sites-enabled/000-default.conf
+	rm /etc/apache2/sites-enabled/000-default.conf && \
+	chgrp -R www-data /var/www/html && \
+	chmod g+w /var/www/html
 
 COPY	ports.conf /etc/apache2/ports.conf
 
