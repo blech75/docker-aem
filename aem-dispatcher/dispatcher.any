@@ -97,7 +97,8 @@
       /0046 { /type "allow" /url "*.swf"   }  # enable flash
       /0047 { /type "allow" /url "*.jpg"   }  # enable jpg
       /0048 { /type "allow" /url "*.jpeg"  }  # enable jpeg
-#Font Filetypes
+
+      # Font Filetypes
       /0049 { /type "allow" /url "*.ttf"  }  # enable true-type-fonts
       /0050 { /type "allow" /url "*.svg"  }  # enable svg
       /0051 { /type "allow" /url "*.eot"  }  # enable eot
