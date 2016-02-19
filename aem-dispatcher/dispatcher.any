@@ -33,8 +33,10 @@
       /rend01
         {
         # Hostname or IP of the render
+        #/hostname "127.0.0.1"
         /hostname "publish"
         # Port of the render
+        #/port "8080"
         /port "4503"
         # Connect timeout in milliseconds, 0 to wait indefinitely
         # /timeout "0"
@@ -125,6 +127,7 @@
       # dispatcher will store files relative to this directory and subsequent
       # requests may be "declined" by the dispatcher, allowing the webserver
       # to deliver them just like static files.
+      #/docroot "/opt/communique/dispatcher/cache"
       /docroot "/var/www/dispatcher-publish"
 
       # Sets the level upto which files named ".stat" will be created in the
