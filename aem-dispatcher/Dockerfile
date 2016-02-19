@@ -19,10 +19,12 @@ RUN a2enmod \
 RUN mkdir -p /etc/apache2/ssl && \
 	rm /etc/apache2/sites-enabled/000-default.conf
 
-# clear out docroot and allow write access to apache (dispatcher module)
-RUN rm /var/www/html/* && \
-	chgrp -R www-data /var/www/html && \
-	chmod g+w /var/www/html
+# clear out existing docroot; create new dir and allow write access to
+# apache (dispatcher module)
+RUN rm -rf /var/www/* && \
+	mkdir -p /var/www/dispatcher-publish && \
+	chgrp -R www-data /var/www/dispatcher-publish && \
+	chmod g+w /var/www/dispatcher-publish
 
 COPY	ports.conf /etc/apache2/ports.conf
 
