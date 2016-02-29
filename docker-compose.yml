@@ -2,14 +2,15 @@ publish:
     image: aem-publish
     ports:
         - "4503:4503"
-    # links are currently unnecessary for publish.
+    # dispatcher is already linked to publish per below.
 
 author:
     image: aem-author
     ports:
         - "4502:4502"
     links:
-        # expose publish to author so author can replicate to publish
+        # dispatcher is already linked to author per below.
+        # expose publish to author so author can replicate to publish.
         - publish
 
 dispatcher:
