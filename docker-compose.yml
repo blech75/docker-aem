@@ -1,28 +1,30 @@
-publish:
-    image: aem-publish
-    ports:
-        - "4503:4503"
-    # dispatcher is already linked to publish per below.
+version: '2'
+services:
+  publish:
+      image: aem-publish
+      ports:
+          - "4503:4503"
+      # dispatcher is already linked to publish per below.
 
-author:
-    image: aem-author
-    ports:
-        - "4502:4502"
-    links:
-        # dispatcher is already linked to author per below.
-        # expose publish to author so author can replicate to publish.
-        - publish
+  author:
+      image: aem-author
+      ports:
+          - "4502:4502"
+      links:
+          # dispatcher is already linked to author per below.
+          # expose publish to author so author can replicate to publish.
+          - publish
 
-dispatcher:
-    image: aem-dispatcher
-    ports:
-        - "80:80"
-    links:
-        # expose publish to dispatcher so dispatcher can request pages from
-        # publish. also allows us to proxy requests to publish via vhost on
-        # port 80.
-        - publish
+  dispatcher:
+      image: aem-dispatcher
+      ports:
+          - "80:80"
+      links:
+          # expose publish to dispatcher so dispatcher can request pages from
+          # publish. also allows us to proxy requests to publish via vhost on
+          # port 80.
+          - publish
 
-        # expose author to dispatcher so dispatcher can proxy to author via
-        # vhost on port 80.
-        - author
+          # expose author to dispatcher so dispatcher can proxy to author via
+          # vhost on port 80.
+          - author
