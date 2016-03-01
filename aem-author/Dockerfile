@@ -17,6 +17,13 @@ ENV PUBLISH_HOST publish
 #
 # the RUN command starts up AEM, waits until it responds, and then shuts down.
 #
+# NOTE: setting up replication agent directly after the startup does not seem
+# completely reliable, so it's removed for now. (It was previously in between
+# "done!" and "Stopping AEM...".) The replication agent will therefore need
+# configuring in the running container via alternative methods.
+#
+#   echo "Setting up author replication agent..." && \
+#   curl -u admin:admin --output /dev/null --silent http://localhost:4502/etc/replication/agents.author/publish/jcr:content -F transportUri=http://${PUBLISH_HOST}:4503/bin/receive?sling:authRequestLogin=1 && \
 #
 RUN echo "Starting AEM with env:" && \
     env | sort | sed -e 's/^/  - /' && \
@@ -24,8 +31,6 @@ RUN echo "Starting AEM with env:" && \
     crx-quickstart/bin/start && \
     until $(curl -u admin:admin --output /dev/null --silent --head --fail http://localhost:$CQ_PORT); do printf '.'; sleep 5; done && \
     echo "done!" && \
-    echo "Setting up author replication agent..." && \
-    curl -u admin:admin --output /dev/null --silent http://localhost:4502/etc/replication/agents.author/publish/jcr:content -F transportUri=http://${PUBLISH_HOST}:4503/bin/receive?sling:authRequestLogin=1 && \
     echo "Stopping AEM..." && \
     crx-quickstart/bin/stop
 
