@@ -25,6 +25,10 @@ ENV PUBLISH_HOST publish
 #   echo "Setting up author replication agent..." && \
 #   curl -u admin:admin --output /dev/null --silent http://localhost:4502/etc/replication/agents.author/publish/jcr:content -F transportUri=http://${PUBLISH_HOST}:4503/bin/receive?sling:authRequestLogin=1 && \
 #
+# TODO: change 'pauseCompaction' to 'false' in /opt/aem/crx-quickstart/launchpad/config/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeStoreService.config
+#
+# FIXME: consider moving this to an external script now that author and
+# publish startups are indentical.
 RUN echo "Starting AEM with env:" && \
     env | sort | sed -e 's/^/  - /' && \
     echo -n "Initial startup (installation) of AEM" && \

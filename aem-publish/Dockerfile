@@ -18,6 +18,10 @@ ENV AUTHOR_HOST author
 # the RUN command starts up AEM, waits until it responds, installs replication
 # agent to publish instance, and then shuts down.
 #
+# TODO: change 'pauseCompaction' to 'false' in /opt/aem/crx-quickstart/launchpad/config/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeStoreService.config
+#
+# FIXME: consider moving this to an external script now that author and
+# publish startups are indentical.
 RUN echo "Starting AEM with env:" && \
     env | sort | sed -e 's/^/  - /' && \
     echo -n "Initial startup (installation) of AEM" && \
