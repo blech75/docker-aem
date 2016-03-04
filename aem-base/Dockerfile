@@ -46,6 +46,9 @@ RUN groupadd -r $AEM_USER && useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_D
 # This is purposely added post-unpack.
 ADD ./quickstart-fixed $AEM_WORKING_DIR/crx-quickstart/bin/
 
+# Add aem-first-boot script, to be used by -author and -publish instances.
+ADD ./aem-first-boot $AEM_WORKING_DIR/crx-quickstart/bin/
+
 
 USER $AEM_USER
 
