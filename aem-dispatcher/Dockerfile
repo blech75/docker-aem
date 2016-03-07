@@ -5,6 +5,7 @@ RUN	apt-get update && \
 	apt-get install -y apache2 apache2-doc
 
 # configure apache modules
+# FIXME: vet these and remove as necessary
 RUN a2enmod \
 	headers \
 	alias \
@@ -21,6 +22,8 @@ RUN mkdir -p /etc/apache2/ssl && \
 
 # clear out existing docroot; create new dir and allow write access to
 # apache (dispatcher module)
+#
+# NOTE: the group passed to chgrp is defined in /etc/apache2/envvars
 RUN rm -rf /var/www/* && \
 	mkdir -p /var/www/dispatcher-publish && \
 	chgrp -R www-data /var/www/dispatcher-publish && \
@@ -38,4 +41,5 @@ COPY	dispatcher.so /usr/lib/apache2/modules/dispatcher.so
 COPY	dispatcher.conf /etc/apache2/conf-enabled/dispatcher.conf
 COPY	dispatcher.any /etc/apache2/conf.d/dispatcher.any
 
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+# see /etc/apache/envvars for config vars used by apache2ctl
+ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
