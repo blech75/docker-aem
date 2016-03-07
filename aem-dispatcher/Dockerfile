@@ -41,5 +41,8 @@ COPY	dispatcher.so /usr/lib/apache2/modules/dispatcher.so
 COPY	dispatcher.conf /etc/apache2/conf-enabled/dispatcher.conf
 COPY	dispatcher.any /etc/apache2/conf.d/dispatcher.any
 
+# set TERM so basic things like screen clearing and 'top' will work.
+ENV TERM xterm
+
 # see /etc/apache/envvars for config vars used by apache2ctl
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

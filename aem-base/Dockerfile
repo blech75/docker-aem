@@ -2,6 +2,9 @@
 
 FROM ubuntu-java
 
+# set TERM so basic things like screen clearing and 'top' will work.
+ENV TERM xterm
+
 ENV AEM_VERSION 6.1
 # NOTE: we're not using *-runmode-port.jar naming convention for jar because it
 # doesn't matter for unpacking. run modes are set via CQ_RUNMODE in the -author
