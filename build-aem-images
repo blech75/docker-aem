@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
 
+# build-aem-images: a script to automate the building of AEM docker images.
+
+
+# list of images we need built
 DOCKER_IMAGES="ubuntu-java aem-base aem-author aem-publish aem-dispatcher"
 
+# files expected by the associated Dockerfiles
 REQUIRED_FILES="aem-base/aem-quickstart.jar
 aem-base/license.properties
 aem-dispatcher/dispatcher.so"
 
+# holds the files marked as missing so we can present a list to the user
 MISSING_REQUIRED_FILES=
 
+# detect any missing files, display them to user
 for f in $REQUIRED_FILES; do
   if [ ! -e $f ]; then
     echo "Error: Missing required file: '${f}'."
@@ -15,10 +22,12 @@ for f in $REQUIRED_FILES; do
   fi
 done
 
+# exit with error if we don't have requried files
 if [ $MISSING_REQUIRED_FILES ]; then
   exit 1
 fi
 
+# loop over the list of docker images to build
 for image in $DOCKER_IMAGES; do
   echo ">>> Building Docker image: ${image}..."
   docker build --rm --force-rm -t ${image} -f ./${image}/Dockerfile ./${image}
