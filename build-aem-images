@@ -27,6 +27,15 @@ if [ $MISSING_REQUIRED_FILES ]; then
   exit 1
 fi
 
+# overrride the list of images with anything passed on the command line to allow
+# for quicker image building (since aem-base includes the 600mb jar file).
+#
+# FIXME: validate passed arguments against list of DOCKER_IMAGES so we don't
+# attempt to build something we can't.
+if [[ "$@" != "" ]]; then
+  DOCKER_IMAGES="$*"
+fi
+
 # loop over the list of docker images to build
 for image in $DOCKER_IMAGES; do
   echo ">>> Building Docker image: ${image}..."
