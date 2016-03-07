@@ -38,24 +38,30 @@ ENV CQ_JVM_OPTS   "-server -Xms512M -Xmx1524M -XX:MaxPermSize=512M -Djava.awt.he
 # all future commands will be relative to $AEM_WORKING_DIR
 WORKDIR $AEM_WORKING_DIR
 
-# Add quickstart .jar and license files
-ADD ./$AEM_QUICKSTART_FILE ./
-ADD ./license.properties   ./
-
-# Create aem user & group
+# Create a user & group for AEM to run under, with the homedir set to the WORKDIR
 RUN groupadd -r $AEM_USER && \
     useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_DIR
 
-# Unpack quickstart jar, and adjust ownership of WORKDIR
-RUN java -jar ./$AEM_QUICKSTART_FILE -unpack && \
-    chown -R $AEM_USER:$AEM_USER .
+# Add and then unpack the quickstart jar
+ADD ./$AEM_QUICKSTART_FILE ./
+RUN java -jar ./$AEM_QUICKSTART_FILE -unpack
 
-# Add fixed quickstart script, to be used by -author and -publish instances.
-# This is purposely added post-unpack.
+
+# Add some files for use by -author and -publish Docker images
+#
+# Add the AEM license file
+ADD ./license.properties   ./
+
+# Add a "fixed" quickstart script. See code comments in file for rationale.
 ADD ./quickstart-fixed ./crx-quickstart/bin/
 
-# Add aem-first-boot script, to be used by -author and -publish instances.
+# Add a first-boot script for "priming" an AEM instance.
 ADD ./aem-first-boot ./crx-quickstart/bin/
+
+
+# Adjust ownership of WORKDIR after all files have been added. (Files are
+# added with ownership set to root.)
+RUN chown -R $AEM_USER:$AEM_USER .
 
 
 USER $AEM_USER
