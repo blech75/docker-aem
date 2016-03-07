@@ -42,9 +42,12 @@ WORKDIR $AEM_WORKING_DIR
 ADD ./$AEM_QUICKSTART_FILE ./
 ADD ./license.properties   ./
 
-# Create aem user, unpack quickstart jar, and adjust ownership of WORKDIR
-RUN groupadd -r $AEM_USER && useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_DIR && \
-    java -jar ./$AEM_QUICKSTART_FILE -unpack && \
+# Create aem user & group
+RUN groupadd -r $AEM_USER && \
+    useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_DIR
+
+# Unpack quickstart jar, and adjust ownership of WORKDIR
+RUN java -jar ./$AEM_QUICKSTART_FILE -unpack && \
     chown -R $AEM_USER:$AEM_USER .
 
 # Add fixed quickstart script, to be used by -author and -publish instances.
