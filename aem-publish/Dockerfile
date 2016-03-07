@@ -20,4 +20,4 @@ EXPOSE $CQ_PORT
 
 # run quickstart (fixed) to keep AEM in the foreground (instead of start, which
 # backgrounds it).
-ENTRYPOINT crx-quickstart/bin/quickstart-fixed
+ENTRYPOINT ["crx-quickstart/bin/quickstart-fixed"]
