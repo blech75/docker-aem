@@ -39,7 +39,10 @@ fi
 # loop over the list of docker images to build
 for image in $DOCKER_IMAGES; do
   echo ">>> Building Docker image: ${image}..."
-  docker build --rm --force-rm -t ${image} -f ./${image}/Dockerfile ./${image}
+  # build notes:
+  # - remove intermediate docker images
+  # - tag the images with the image name
+  docker build --force-rm -t ${image} -f ./${image}/Dockerfile ./${image}
   echo
 done
 
