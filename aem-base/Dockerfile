@@ -35,24 +35,24 @@ ENV CQ_NOFORK     true
 #
 ENV CQ_JVM_OPTS   "-server -Xms512M -Xmx1524M -XX:MaxPermSize=512M -Djava.awt.headless=true"
 
+# all future commands will be relative to $AEM_WORKING_DIR
+WORKDIR $AEM_WORKING_DIR
 
 # Add quickstart .jar and license files
-ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/
-ADD ./license.properties   $AEM_WORKING_DIR/
+ADD ./$AEM_QUICKSTART_FILE ./
+ADD ./license.properties   ./
 
 # Create aem user, unpack quickstart jar, and adjust ownership of WORKDIR
 RUN groupadd -r $AEM_USER && useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_DIR && \
-    java -jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE -unpack && \
-    chown -R $AEM_USER:$AEM_USER $AEM_WORKING_DIR
+    java -jar ./$AEM_QUICKSTART_FILE -unpack && \
+    chown -R $AEM_USER:$AEM_USER .
 
 # Add fixed quickstart script, to be used by -author and -publish instances.
 # This is purposely added post-unpack.
-ADD ./quickstart-fixed $AEM_WORKING_DIR/crx-quickstart/bin/
+ADD ./quickstart-fixed ./crx-quickstart/bin/
 
 # Add aem-first-boot script, to be used by -author and -publish instances.
-ADD ./aem-first-boot $AEM_WORKING_DIR/crx-quickstart/bin/
+ADD ./aem-first-boot ./crx-quickstart/bin/
 
 
 USER $AEM_USER
-
-WORKDIR $AEM_WORKING_DIR
