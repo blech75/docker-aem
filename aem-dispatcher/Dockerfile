@@ -45,4 +45,9 @@ COPY	dispatcher.any /etc/apache2/conf.d/dispatcher.any
 ENV TERM xterm
 
 # see /etc/apache/envvars for config vars used by apache2ctl
+#
+# NOTE: using exec form to avoid being a child of 'sh -c' and to allow for
+# receiving signals from 'docker stop'. see
+# https://docs.docker.com/engine/reference/builder/#entrypoint
+#
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

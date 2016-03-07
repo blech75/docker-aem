@@ -20,4 +20,9 @@ EXPOSE $CQ_PORT
 
 # run quickstart (fixed) to keep AEM in the foreground (instead of start, which
 # backgrounds it).
+#
+# NOTE: using exec form to avoid being a child of 'sh -c' and to allow for
+# receiving signals from 'docker stop'. see
+# https://docs.docker.com/engine/reference/builder/#entrypoint
+#
 ENTRYPOINT ["crx-quickstart/bin/quickstart-fixed"]
