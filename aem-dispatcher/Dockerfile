@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 # install apache packages
 RUN	apt-get update && \
-	apt-get install -y apache2 apache2-doc
+	apt-get install -y apache2 apache2-doc curl
 
 # configure apache modules
 # FIXME: vet these and remove as necessary
